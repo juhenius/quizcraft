@@ -20,6 +20,7 @@ namespace QuizCraft.Steps
       currentScore = Round.History.Count;
 
       Statistics.IncrementGameCount();
+      Statistics.IncrementAnswerCount(currentScore);
 
       var highscore = Statistics.GetHighscore();
       if (currentScore > highscore)
@@ -55,12 +56,14 @@ namespace QuizCraft.Steps
     {
       var highscore = Statistics.GetHighscore();
       var gameCount = Statistics.GetGameCount();
+      var answerCount = Statistics.GetAnswerCount();
 
       output.Text = new TextBuilder()
         .WithTitle("Peli päättyi!")
-        .WithLine($"Oikeita vastauksia: <rainb>{currentScore}</rainb>", fontSize: 80, lineHeight: 85)
-        .WithLine($"Ennätyksesi: <rainb>{highscore}</rainb>", fontSize: 80, lineHeight: 85)
-        .WithLine($"Pelattuja pelejä: <rainb>{gameCount}</rainb>", fontSize: 80, lineHeight: 115)
+        .WithLine($"Oikeita vastauksia: <rainb>{currentScore}</rainb>", fontSize: 70, lineHeight: 75)
+        .WithLine($"Ennätyksesi: <rainb>{highscore}</rainb>", fontSize: 70, lineHeight: 75)
+        .WithLine($"Pelattuja pelejä: <rainb>{gameCount}</rainb>", fontSize: 70, lineHeight: 75)
+        .WithLine($"Vastauksia yhteensä: <rainb>{answerCount}</rainb>", fontSize: 70, lineHeight: 115)
         .WithLine("<font=\"Englebert-Regular\">Uusi peli", fontSize: 40, lineHeight: 50)
         .WithLine("[<incr>Enter</incr>]", fontSize: 40)
         .Build();
