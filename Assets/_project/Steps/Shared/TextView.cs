@@ -52,5 +52,12 @@ namespace QuizCraft.Steps.Shared
         }
       }
     }
+
+    public void SetFade(float value)
+    {
+      Color color = output.color;
+      color.a = value;
+      output.color = color;
+    }
   }
 }

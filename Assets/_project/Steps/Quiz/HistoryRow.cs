@@ -15,5 +15,11 @@ namespace QuizCraft.Steps.Quiz
       this.question.Text = question.ToString();
       this.answer.Text = question.CorrectAnswer;
     }
+
+    public void SetFade(float fade)
+    {
+      question.SetFade(fade);
+      answer.SetFade(fade);
+    }
   }
 }

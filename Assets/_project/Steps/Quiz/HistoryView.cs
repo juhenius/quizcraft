@@ -5,6 +5,8 @@ namespace QuizCraft.Steps.Quiz
 {
   public class HistoryView : MonoBehaviour, IRoundView
   {
+    private const int MaxRows = 6;
+
     [SerializeField]
     private HistoryRow prefab;
 
@@ -24,12 +26,20 @@ namespace QuizCraft.Steps.Quiz
 
     internal void SetFromRound(Round round)
     {
-      int count = Mathf.Min(6, round.History.Count);
+      int count = Mathf.Min(MaxRows, round.History.Count);
       int startIndex = round.History.Count - count;
       var questionsToShow = round.History.GetRange(startIndex, count);
 
       AddNewRows(questionsToShow);
       RemoveExtraRows(questionsToShow);
+
+      foreach (var (question, row) in rows)
+      {
+        var index = questionsToShow.IndexOf(question);
+        var reverseIndex = count - index;
+        var fade = 0.5f * (1f - (float)reverseIndex / (MaxRows + 1));
+        row.SetFade(fade);
+      }
     }
 
     private void AddNewRows(List<Question> questions)
