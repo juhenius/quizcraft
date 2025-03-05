@@ -6,17 +6,28 @@ namespace QuizCraft.Generators
   public class LargeNumbersAdditionQuestionGenerator : IQuestionGenerator
   {
     private Random random;
+    private int minAnswer = 100;
+    private int maxAnswer = 156;
+    private int minValue = 10;
+    private int maxValue = 100;
 
     public LargeNumbersAdditionQuestionGenerator()
     {
-      var seed = (uint)(System.DateTimeOffset.Now.ToUnixTimeSeconds() * 1000);
-      random = new Random(seed);
+      random = RandomFactory.CreateRandom();
+    }
+
+    public LargeNumbersAdditionQuestionGenerator(int minAnswer, int maxAnswer, int minValue, int maxValue) : this()
+    {
+      this.minAnswer = minAnswer;
+      this.maxAnswer = maxAnswer;
+      this.minValue = minValue;
+      this.maxValue = maxValue;
     }
 
     public Question Create()
     {
-      var correctAnswer = random.NextInt(100, 156);
-      var secondOperand = random.NextInt(10, 100);
+      var correctAnswer = random.NextInt(minAnswer, maxAnswer);
+      var secondOperand = random.NextInt(minValue, maxValue);
       var firstOperand = correctAnswer - secondOperand;
       return new Question($"{firstOperand} + {secondOperand} =", $"{correctAnswer}", IsValidAnswerInput);
     }

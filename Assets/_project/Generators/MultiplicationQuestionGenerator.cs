@@ -11,8 +11,7 @@ namespace QuizCraft.Generators
 
     public MultiplicationQuestionGenerator(int[][] operands)
     {
-      var seed = (uint)(System.DateTimeOffset.Now.ToUnixTimeSeconds() * 1000);
-      random = new Random(seed);
+      random = RandomFactory.CreateRandom();
       this.operands = operands;
 
       var maximumPossibleResult = operands.Select(a => a.Max())

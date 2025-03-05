@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using QuizCraft.Generators;
 using QuizCraft.Steps.Shared;
 using UnityEngine;
@@ -51,6 +52,15 @@ namespace QuizCraft.Steps
           {
             ShowMultiplicationTablesMenu();
           }
+          else if (index == 3)
+          {
+            Round.QuestionGenerators = CreateMultiplicationTableQuestionSet(2, 3, 4, 5, 10);
+          }
+          else if (index == 4)
+          {
+            Round.QuestionGenerators = CreateMixedQuestionSet();
+            Round.RewardPerAnswer = 1;
+          }
           break;
 
         case State.Additions:
@@ -99,6 +109,8 @@ namespace QuizCraft.Steps
               .WithFontSize(30)
               .WithOption(1, "Yhteenlaskut")
               .WithOption(2, "Kertolaskut")
+              .WithOption(3, "Kertotaulukoe")
+              .WithOption(4, "Sekalaiset")
               .Build();
     }
 
@@ -173,11 +185,33 @@ namespace QuizCraft.Steps
       };
     }
 
-    private List<IQuestionGenerator> CreateMultiplicationTableQuestionSet(int table)
+    private List<IQuestionGenerator> CreateMultiplicationTableQuestionSet(params int[] tables)
+    {
+      return tables.Select(table => new MultiplicationTableQuestionGenerator(table)).ToList<IQuestionGenerator>();
+    }
+
+    private List<IQuestionGenerator> CreateMixedQuestionSet()
     {
       return new List<IQuestionGenerator>()
       {
-        new MultiplicationTableQuestionGenerator(table)
+        new LargeNumbersAdditionQuestionGenerator(750, 1000, 50, 99),
+        new LargeNumbersAdditionQuestionGenerator(750, 1000, 50, 150),
+        new LargeNumbersAdditionQuestionGenerator(750, 1000, 101, 199),
+        new LargeNumbersAdditionQuestionGenerator(750, 1000, 201, 299),
+        new MultiplicationTableQuestionGenerator(3),
+        new MultiplicationTableQuestionGenerator(3),
+        new MultiplicationTableQuestionGenerator(4),
+        new MultiplicationTableQuestionGenerator(4),
+        new MultiplicationTableQuestionGenerator(5),
+        new MultiplicationTableQuestionGenerator(5),
+        new MultiplicationTableQuestionGenerator(6),
+        new MultiplicationTableQuestionGenerator(7),
+        new MultiplicationTableQuestionGenerator(8),
+        new MultiplicationTableQuestionGenerator(9),
+        new DivisionQuestionGenerator(1, 6, 2, 6),
+        new DivisionQuestionGenerator(1, 6, 2, 6),
+        new DivisionQuestionGenerator(1, 6, 2, 6),
+        new DivisionQuestionGenerator(1, 10, 2, 10),
       };
     }
   }

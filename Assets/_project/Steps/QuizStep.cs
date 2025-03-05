@@ -74,6 +74,8 @@ namespace QuizCraft.Steps
     {
       gameIsRunning = false;
       Celebrate();
+      Statistics.IncrementAnswerCount();
+      Statistics.IncrementPlayerReward(Round.RewardPerAnswer);
 
       await Awaitable.WaitForSecondsAsync(1, destroyCancellationToken);
 

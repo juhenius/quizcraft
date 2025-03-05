@@ -1,3 +1,4 @@
+using Febucci.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +9,7 @@ namespace QuizCraft.Steps.Shared
   {
     private string text;
     private TextMeshProUGUI output;
+    private TypewriterByCharacter writer;
 
     public delegate void LinkClickHandler(string linkId);
     public event LinkClickHandler LinkClicked;
@@ -22,14 +24,21 @@ namespace QuizCraft.Steps.Shared
         if (value != text)
         {
           text = value;
-          output.text = value;
+          writer.ShowText(value);
         }
       }
+    }
+
+    public bool AnimationEnabled
+    {
+      get => writer.useTypeWriter;
+      set => writer.useTypeWriter = value;
     }
 
     void Awake()
     {
       output = GetComponent<TextMeshProUGUI>();
+      writer = GetComponent<TypewriterByCharacter>();
     }
 
     public void OnPointerClick(PointerEventData eventData)

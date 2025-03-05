@@ -8,6 +8,7 @@ namespace QuizCraft
     private static string HighscoreKey => $"{GetCurrentRoundKey(player: true, questions: true, progress: true)}.highscore";
     private static string GameCountKey => $"{GetCurrentRoundKey(player: true, questions: true, progress: true)}.count";
     private static string AnswerCountKey => $"{GetCurrentRoundKey(player: true, questions: true)}.answerCount";
+    private static string PlayerRewardKey => $"{GetCurrentRoundKey(player: true)}.reward";
 
     public static int GetHighscore()
     {
@@ -34,15 +35,27 @@ namespace QuizCraft
       return PlayerPrefs.GetInt(AnswerCountKey);
     }
 
-    public static void IncrementAnswerCount(int value)
+    public static void IncrementAnswerCount()
     {
-      PlayerPrefs.SetInt(AnswerCountKey, GetAnswerCount() + value);
+      PlayerPrefs.SetInt(AnswerCountKey, GetAnswerCount() + 1);
+    }
+
+    public static int GetPlayerReward()
+    {
+      return PlayerPrefs.GetInt(PlayerRewardKey);
+    }
+
+    public static void IncrementPlayerReward(int value)
+    {
+      PlayerPrefs.SetInt(PlayerRewardKey, GetPlayerReward() + value);
     }
 
     public static void Clear()
     {
       PlayerPrefs.DeleteKey(HighscoreKey);
       PlayerPrefs.DeleteKey(GameCountKey);
+      PlayerPrefs.DeleteKey(AnswerCountKey);
+      PlayerPrefs.DeleteKey(PlayerRewardKey);
     }
 
     private static string GetCurrentRoundKey(

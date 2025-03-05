@@ -20,7 +20,6 @@ namespace QuizCraft.Steps
       currentScore = Round.History.Count;
 
       Statistics.IncrementGameCount();
-      Statistics.IncrementAnswerCount(currentScore);
 
       var highscore = Statistics.GetHighscore();
       if (currentScore > highscore)

@@ -10,8 +10,7 @@ namespace QuizCraft.Generators
 
     public PairsThatMakeCloseToTenAdditionQuestionGenerator()
     {
-      var seed = (uint)(System.DateTimeOffset.Now.ToUnixTimeSeconds() * 1000);
-      random = new Random(seed);
+      random = RandomFactory.CreateRandom();
     }
 
     public Question Create()

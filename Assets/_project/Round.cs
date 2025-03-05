@@ -14,6 +14,7 @@ namespace QuizCraft
     private string currentAnswer = string.Empty;
     private List<Question> history = new();
     private float timeElapsed;
+    private int rewardPerAnswer;
 
     public string Player
     {
@@ -82,6 +83,16 @@ namespace QuizCraft
       {
         timeElapsed = value;
         OnPropertyChanged(nameof(TimeElapsed));
+      }
+    }
+
+    public int RewardPerAnswer
+    {
+      get => rewardPerAnswer;
+      set
+      {
+        rewardPerAnswer = value;
+        OnPropertyChanged(nameof(RewardPerAnswer));
       }
     }
 
